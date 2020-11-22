@@ -78,10 +78,9 @@ public class HousieGame {
 		}
 	}
 
-	private boolean addWinner(Player player, Rules rule) {
+	private void addWinner(Player player, Rules rule) {
 		turnWinners.put(rule, player);
 		winners.put(rule, player);
-		return true;
 	}
 
 	private void notifyWinningRule(Rules rule) {

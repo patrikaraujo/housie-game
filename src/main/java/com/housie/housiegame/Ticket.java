@@ -64,14 +64,7 @@ public class Ticket {
 	}
 
 	public boolean isTicketFullyMarked() {
-		boolean fullyMarked = true;
-		for (int i = 0; i < table.size(); ++i) {
-			if (!isRowFullyMarked(i)) {
-				fullyMarked = false;
-				break;
-			}
-		}
-		return fullyMarked;
+		return markedCount == rows * numbersPerRow;
 	}
 
 	private void validateInputs() {
