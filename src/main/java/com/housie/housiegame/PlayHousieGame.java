@@ -23,19 +23,18 @@ public class PlayHousieGame {
 	private static final int CHAR_Q = (int) 'q';
 	private static final int CHAR_UPPERCASE_Q = (int) 'Q';
 
-	private static int readInteger(Scanner scanner) {
-		return readInteger(scanner, null);
+	private static int readInteger(Scanner scanner, String fieldName) {
+		return readInteger(scanner, null, fieldName);
 	}
 
-	private static int readInteger(Scanner scanner, Integer defaultValue) {
+	private static int readInteger(Scanner scanner, Integer defaultValue, String fieldName) {
 		while (true) {
 			try {
 				String input = scanner.nextLine();
-				if (input.isEmpty() && defaultValue != null)
-					return defaultValue;
-				return Integer.parseInt(input);
-			} catch (NumberFormatException e) {
-				System.out.print("Please enter an integer value: ");
+				int intValue = input.isEmpty() && defaultValue != null ? defaultValue : Integer.parseInt(input);
+				return GameInputs.requirePositiveInteger(intValue, fieldName);
+			} catch (IllegalArgumentException e) {
+				System.out.print("Please enter a positive integer value: ");
 			}
 		}
 	}
@@ -61,15 +60,15 @@ public class PlayHousieGame {
 		GameInputs gameInputs = null;
 		while (true) {
 			System.out.print(">> Enter the number range (1-n): ");
-			int numberRange = readInteger(scanner);
+			int numbersRange = readInteger(scanner, "numbersRange");
 			System.out.print(">> Enter number of players playing the game: ");
-			int players = readInteger(scanner);
+			int players = readInteger(scanner, "players");
 			System.out.print(">> Enter ticket size: Default to 3x10: ");
 			String ticketSize = readTicketSize(scanner, "3x10");
 			System.out.print(">> Enter numbers per row. Default to 5: ");
-			int numbersPerRow = readInteger(scanner, 5);
+			int numbersPerRow = readInteger(scanner, 5, "numbersPerRow");
 			try {
-				gameInputs = new GameInputs(numberRange, players, ticketSize, numbersPerRow);
+				gameInputs = new GameInputs(numbersRange, players, ticketSize, numbersPerRow);
 				break;
 			} catch (IllegalArgumentException e) {
 				System.out.println(e.getLocalizedMessage());

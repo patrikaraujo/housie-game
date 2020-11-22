@@ -18,14 +18,14 @@ public class GameInputs {
 	public final int columns;
 
 	public GameInputs(int numbersRange, int numberOfPlayers, String ticketSize, int numbersPerRow) {
-		this.numbersRange = numbersRange;
-		this.numberOfPlayers = numberOfPlayers;
+		this.numbersRange = requirePositiveInteger(numbersRange, "numbersRange");
+		this.numberOfPlayers = requirePositiveInteger(numberOfPlayers, "numberOfPlayers");
 		this.ticketSize = ticketSize;
 		validateDimension(ticketSize);
 		String[] dimensions = ticketSize.toLowerCase().split("x");
 		this.rows = Integer.parseInt(dimensions[0]);
 		this.columns = Integer.parseInt(dimensions[1]);
-		this.numbersPerRow = numbersPerRow;
+		this.numbersPerRow = requirePositiveInteger(numbersPerRow, "numbersPerRow");
 		validateInputs();
 	}
 
@@ -45,12 +45,18 @@ public class GameInputs {
 				|| Integer.parseInt(dimension.toLowerCase().split("x")[1]) < 0)
 			throw new IllegalArgumentException("The dimension must have 2 positive integer numbers");
 	}
+	
+	public static int requirePositiveInteger(Integer value, String fieldName) {
+		if (value <= 0)
+			throw new IllegalArgumentException(fieldName + " must be a positive integer.");
+		return value;
+	}
 
 	public void validateInputs() {
-		// If number of players is over a certain limit
-		// If ticketSize follows the syntax
-		// If numbers per row and numbersRange make sense
-
+		if (numbersRange > 1000)
+			throw new IllegalArgumentException("Excessive range of numbers.");
+		if (numberOfPlayers > 1000)
+			throw new IllegalArgumentException("Excessive number of players.");
 		if (numbersRange < rows * numbersPerRow)
 			throw new IllegalArgumentException("The range of values is insufficient to fill the ticket.");
 		if (numbersPerRow > columns)

@@ -220,6 +220,31 @@ public class HousieGameTest {
 			new GameInputs(20, 4, "3x5", 6);
 		});
 		assertThat(exception.getMessage(), is("The numbersPerRow value cannot be greater than the number of columns."));
+		
+		exception = assertThrows(IllegalArgumentException.class, () -> {
+			new GameInputs(1001, 4, "3x5", 6);
+		});
+		assertThat(exception.getMessage(), is("Excessive range of numbers."));
+		
+		exception = assertThrows(IllegalArgumentException.class, () -> {
+			new GameInputs(20, 1001, "3x5", 6);
+		});
+		assertThat(exception.getMessage(), is("Excessive number of players."));
+		
+		exception = assertThrows(IllegalArgumentException.class, () -> {
+			new GameInputs(-13, 4, "3x5", 6);
+		});
+		assertThat(exception.getMessage(), is("numbersRange must be a positive integer."));
+		
+		exception = assertThrows(IllegalArgumentException.class, () -> {
+			new GameInputs(20, -4, "3x5", 6);
+		});
+		assertThat(exception.getMessage(), is("numberOfPlayers must be a positive integer."));
+		
+		exception = assertThrows(IllegalArgumentException.class, () -> {
+			new GameInputs(20, 4, "3x5", -6);
+		});
+		assertThat(exception.getMessage(), is("numbersPerRow must be a positive integer."));
 	}
 
 	private GameInputs getValidGameInputs() {
@@ -231,7 +256,7 @@ public class HousieGameTest {
 	}
 
 	private GameInputs getValidLargeGameInputs() {
-		return new GameInputs(1000, 100, "10x90", 80);
+		return new GameInputs(1000, 1000, "10x100", 100);
 	}
 
 	private List<Map<Integer, String>> createTestTable() {
