@@ -16,7 +16,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -66,8 +65,8 @@ public class HousieGameTest {
 		List<Rules> rules = Arrays.asList(Rules.EARLY_FIVE, Rules.TOP_LINE, Rules.FULL_HOUSE);
 		Player player1 = new Player("Player1", new ArrayList<Rules>(rules));
 		Player player2 = new Player("Player2", new ArrayList<Rules>(rules));
-		Ticket ticket1 = new Ticket(3, 4, 20, 2, createTestTable(Arrays.asList(2, 8, 6, 4, 10, 12)));
-		Ticket ticket2 = new Ticket(3, 4, 20, 2, createTestTable(Arrays.asList(1, 5, 3, 7, 11, 9)));
+		Ticket ticket1 = new Ticket(3, 4, 20, 2, TicketTest.createTestTable(Arrays.asList(2, 8, 6, 4, 10, 12)));
+		Ticket ticket2 = new Ticket(3, 4, 20, 2, TicketTest.createTestTable(Arrays.asList(1, 5, 3, 7, 11, 9)));
 		player1.assignTicket(ticket1);
 		player2.assignTicket(ticket2);
 
@@ -236,21 +235,7 @@ public class HousieGameTest {
 	}
 
 	private List<Map<Integer, String>> createTestTable() {
-		return createTestTable(Arrays.asList(1, 5, 3, 8, 6, 9));
+		return TicketTest.createTestTable(Arrays.asList(1, 5, 3, 8, 6, 9));
 	}
 
-	private List<Map<Integer, String>> createTestTable(List<Integer> ticketNumbers) {
-		List<Map<Integer, String>> table = new ArrayList<Map<Integer, String>>(3);
-		for (int i = 0; i < 3; ++i) {
-			table.add(new HashMap<Integer, String>(4));
-		}
-//		List<Integer> numbers = Arrays.asList(1, 5, 3, 8, 6, 9);
-		int numbersIndex = 0;
-		for (int i = 0; i < table.size(); ++i) {
-			for (int j = 0; j < 2; ++j) {
-				table.get(i).put(ticketNumbers.get(numbersIndex++), "");
-			}
-		}
-		return table;
-	}
 }

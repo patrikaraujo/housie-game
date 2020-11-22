@@ -45,7 +45,7 @@ public class TicketTest {
 		});
 		assertThat(exception.getMessage(), is("The range of values is insufficient to fill the ticket."));
 	}
-	
+
 	@Test
 	public void ticketCreationInvalidInputsPerRowGreaterThanColumn() {
 		Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -62,7 +62,7 @@ public class TicketTest {
 		assertTrue(ticket.hasNumber(9));
 		assertFalse(ticket.hasNumber(4));
 	}
-	
+
 	@Test
 	public void testMarkTicketValueHit() {
 		List<Map<Integer, String>> table = createTestTable();
@@ -74,7 +74,7 @@ public class TicketTest {
 		assertTrue(ticket.getMarkedRowCount().get(1) == 1);
 		assertTrue(ticket.getMarkedCount() == 2);
 	}
-	
+
 	@Test
 	public void testMarkTicketValueMiss() {
 		List<Map<Integer, String>> table = createTestTable();
@@ -95,14 +95,14 @@ public class TicketTest {
 	public void testIsTicketFullyMarked() {
 		List<Map<Integer, String>> table = createTestTable();
 		Ticket ticket = new Ticket(3, 4, 10, 2, table);
-		
+
 		ticket.markNumber(9);
 		ticket.markNumber(1);
 		ticket.markNumber(3);
 		// Verify the case of row not fully marked
 		assertFalse(ticket.isRowFullyMarked(0));
 		assertFalse(ticket.isTicketFullyMarked());
-		
+
 		ticket.markNumber(5);
 		ticket.markNumber(6);
 		ticket.markNumber(8);
@@ -111,17 +111,20 @@ public class TicketTest {
 		assertTrue(ticket.isRowFullyMarked(2));
 		assertTrue(ticket.isTicketFullyMarked());
 	}
-	
-	private List<Map<Integer, String>> createTestTable() {
+
+	public static List<Map<Integer, String>> createTestTable() {
+		return createTestTable(Arrays.asList(1, 5, 3, 8, 6, 9));
+	}
+
+	public static List<Map<Integer, String>> createTestTable(List<Integer> ticketNumbers) {
 		List<Map<Integer, String>> table = new ArrayList<Map<Integer, String>>(3);
 		for (int i = 0; i < 3; ++i) {
 			table.add(new HashMap<Integer, String>(4));
 		}
-		List<Integer> numbers = Arrays.asList(1, 5, 3, 8, 6, 9);
 		int numbersIndex = 0;
 		for (int i = 0; i < table.size(); ++i) {
 			for (int j = 0; j < 2; ++j) {
-				table.get(i).put(numbers.get(numbersIndex++), "");
+				table.get(i).put(ticketNumbers.get(numbersIndex++), "");
 			}
 		}
 		return table;

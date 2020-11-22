@@ -14,9 +14,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
@@ -29,13 +26,13 @@ public class PlayerTest {
 		assertTrue(player.getWins().size() == 0);
 		assertTrue(player.toString().equals("Player1"));
 	}
-	
+
 	@Test
 	public void testPlayerMarkingNumbers() {
 		Player player = new Player("Player", new ArrayList<Rules>(Arrays.asList(Rules.EARLY_FIVE, Rules.TOP_LINE)));
-		Ticket ticket = new Ticket(3, 4, 10, 2, createTestTable());
+		Ticket ticket = new Ticket(3, 4, 10, 2, TicketTest.createTestTable());
 		player.assignTicket(ticket);
-		
+
 		PlayerStatus status = player.acceptNumberCalled(9);
 		assertFalse(player.isWinner());
 		assertFalse(status.isWinner());
@@ -48,21 +45,6 @@ public class PlayerTest {
 		status = player.acceptNumberCalled(3);
 		assertTrue(status.getWins().size() == 0);
 		assertTrue(player.getWins().size() == 1);
-	}
-	
-	private List<Map<Integer, String>> createTestTable() {
-		List<Map<Integer, String>> table = new ArrayList<Map<Integer, String>>(3);
-		for (int i = 0; i < 3; ++i) {
-			table.add(new HashMap<Integer, String>(4));
-		}
-		List<Integer> numbers = Arrays.asList(1, 5, 3, 8, 6, 9);
-		int numbersIndex = 0;
-		for (int i = 0; i < table.size(); ++i) {
-			for (int j = 0; j < 2; ++j) {
-				table.get(i).put(numbers.get(numbersIndex++), "");
-			}
-		}
-		return table;
 	}
 
 }
