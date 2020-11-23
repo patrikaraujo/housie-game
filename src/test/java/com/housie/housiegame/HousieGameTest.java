@@ -17,7 +17,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
@@ -107,7 +106,7 @@ public class HousieGameTest {
 		List<Rules> rules = Arrays.asList(Rules.EARLY_FIVE, Rules.TOP_LINE, Rules.FULL_HOUSE);
 		Player player1 = new Player("Player1", new ArrayList<Rules>(rules));
 		Player player2 = new Player("Player2", new ArrayList<Rules>(rules));
-		Ticket ticket = new Ticket(3, 4, 10, 2, createTestTable());
+		Ticket ticket = new Ticket(3, 4, 10, 2, TicketTest.createTestTable(Arrays.asList(1, 5, 3, 8, 6, 9)));
 		player1.assignTicket(ticket);
 		player2.assignTicket(ticket);
 
@@ -131,7 +130,7 @@ public class HousieGameTest {
 		List<Rules> rules = Arrays.asList(Rules.EARLY_FIVE, Rules.TOP_LINE, Rules.FULL_HOUSE);
 		Player player1 = new Player("Player1", new ArrayList<Rules>(rules));
 		Player player2 = new Player("Player2", new ArrayList<Rules>(rules));
-		Ticket ticket = new Ticket(3, 4, 10, 2, createTestTable());
+		Ticket ticket = new Ticket(3, 4, 10, 2, TicketTest.createTestTable(Arrays.asList(1, 5, 3, 8, 6, 9)));
 		player1.assignTicket(ticket);
 		player2.assignTicket(ticket);
 
@@ -257,10 +256,6 @@ public class HousieGameTest {
 
 	private GameInputs getValidLargeGameInputs() {
 		return new GameInputs(1000, 1000, "10x100", 100);
-	}
-
-	private List<Map<Integer, String>> createTestTable() {
-		return TicketTest.createTestTable(Arrays.asList(1, 5, 3, 8, 6, 9));
 	}
 
 }

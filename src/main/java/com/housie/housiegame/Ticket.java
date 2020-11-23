@@ -10,7 +10,7 @@ package com.housie.housiegame;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -19,7 +19,7 @@ import java.util.stream.Stream;
 
 public class Ticket {
 
-	private List<Map<Integer, String>> table;
+	Map<Integer, Integer> table;
 	private List<Integer> rowMarkedCount;
 	private int markedCount;
 	private int rows;
@@ -33,15 +33,12 @@ public class Ticket {
 		this.rows = rows;
 		this.columns = columns;
 		validateInputs();
-		this.table = new ArrayList<Map<Integer, String>>(rows);
-		for (int i = 0; i < rows; ++i) {
-			this.table.add(new HashMap<Integer, String>(columns));
-		}
+		this.table = new LinkedHashMap<Integer, Integer>(rows * numbersPerRow);
 		this.rowMarkedCount = Stream.generate(() -> Integer.valueOf(0)).limit(rows).collect(Collectors.toList());
 		this.fillTable();
 	}
 
-	public Ticket(int rows, int columns, int numbersRange, int numbersPerRow, List<Map<Integer, String>> table) {
+	public Ticket(int rows, int columns, int numbersRange, int numbersPerRow, Map<Integer, Integer> table) {
 		this.numbersRange = numbersRange;
 		this.numbersPerRow = numbersPerRow;
 		this.rows = rows;
@@ -75,29 +72,23 @@ public class Ticket {
 	}
 
 	public boolean hasNumber(int number) {
-		for (int i = 0; i < table.size(); ++i) {
-			if (table.get(i).containsKey(number)) {
-				return true;
-			}
-		}
-		return false;
+		return table.containsKey(number);
 	}
 
 	public void markNumber(int number) {
-		for (int i = 0; i < table.size(); ++i) {
-			if (table.get(i).remove(number) != null) {
-				rowMarkedCount.set(i, rowMarkedCount.get(i) + 1);
-				++markedCount;
-			}
+		Integer columnOfNumber = table.remove(number);
+		if (columnOfNumber != null) {
+			rowMarkedCount.set(columnOfNumber, rowMarkedCount.get(columnOfNumber) + 1);
+			++markedCount;
 		}
 	}
 
 	private void fillTable() {
 		List<Integer> numbers = generateRandomNumbers(numbersRange, rows * numbersPerRow);
 		int numbersIndex = 0;
-		for (int i = 0; i < table.size(); ++i) {
+		for (int i = 0; i < rows; ++i) {
 			for (int j = 0; j < numbersPerRow; ++j) {
-				table.get(i).put(numbers.get(numbersIndex++), "");
+				table.put(numbers.get(numbersIndex++), i);
 			}
 		}
 	}
@@ -111,11 +102,7 @@ public class Ticket {
 
 	@Override
 	public String toString() {
-		StringBuilder response = new StringBuilder();
-		for (Map<Integer, String> row : table) {
-			response.append(row.toString() + "\n");
-		}
-		return response.toString();
+		return table.toString();
 	}
 
 }

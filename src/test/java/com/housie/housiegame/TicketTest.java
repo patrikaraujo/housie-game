@@ -14,9 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -56,8 +55,7 @@ public class TicketTest {
 
 	@Test
 	public void testTicketHasValue() {
-		List<Map<Integer, String>> table = createTestTable();
-		Ticket ticket = new Ticket(3, 4, 10, 2, table);
+		Ticket ticket = new Ticket(3, 4, 10, 2, createTestTable());
 		assertTrue(ticket.hasNumber(3));
 		assertTrue(ticket.hasNumber(9));
 		assertFalse(ticket.hasNumber(4));
@@ -65,8 +63,7 @@ public class TicketTest {
 
 	@Test
 	public void testMarkTicketValueHit() {
-		List<Map<Integer, String>> table = createTestTable();
-		Ticket ticket = new Ticket(3, 4, 10, 2, table);
+		Ticket ticket = new Ticket(3, 4, 10, 2, createTestTable());
 		ticket.markNumber(9);
 		assertTrue(ticket.getMarkedRowCount().get(2) == 1);
 		assertTrue(ticket.getMarkedCount() == 1);
@@ -77,8 +74,7 @@ public class TicketTest {
 
 	@Test
 	public void testMarkTicketValueMiss() {
-		List<Map<Integer, String>> table = createTestTable();
-		Ticket ticket = new Ticket(3, 4, 10, 2, table);
+		Ticket ticket = new Ticket(3, 4, 10, 2, createTestTable());
 		ticket.markNumber(13);
 		for (int i = 0; i < 3; i++) {
 			assertTrue(ticket.getMarkedRowCount().get(i) == 0);
@@ -93,8 +89,7 @@ public class TicketTest {
 
 	@Test
 	public void testIsTicketFullyMarked() {
-		List<Map<Integer, String>> table = createTestTable();
-		Ticket ticket = new Ticket(3, 4, 10, 2, table);
+		Ticket ticket = new Ticket(3, 4, 10, 2, createTestTable());
 
 		ticket.markNumber(9);
 		ticket.markNumber(1);
@@ -112,19 +107,16 @@ public class TicketTest {
 		assertTrue(ticket.isTicketFullyMarked());
 	}
 
-	public static List<Map<Integer, String>> createTestTable() {
+	public static Map<Integer, Integer> createTestTable() {
 		return createTestTable(Arrays.asList(1, 5, 3, 8, 6, 9));
 	}
 
-	public static List<Map<Integer, String>> createTestTable(List<Integer> ticketNumbers) {
-		List<Map<Integer, String>> table = new ArrayList<Map<Integer, String>>(3);
-		for (int i = 0; i < 3; ++i) {
-			table.add(new HashMap<Integer, String>(4));
-		}
+	public static Map<Integer, Integer> createTestTable(List<Integer> ticketNumbers) {
+		Map<Integer, Integer> table = new LinkedHashMap<Integer, Integer>(6);
 		int numbersIndex = 0;
-		for (int i = 0; i < table.size(); ++i) {
+		for (int i = 0; i < 3; ++i) {
 			for (int j = 0; j < 2; ++j) {
-				table.get(i).put(ticketNumbers.get(numbersIndex++), "");
+				table.put(ticketNumbers.get(numbersIndex++), i);
 			}
 		}
 		return table;
