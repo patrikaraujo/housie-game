@@ -123,7 +123,7 @@ public class HousieGame {
 
 	private List<Player> createPlayers(int numberOfPlayers) {
 		List<Player> players = new ArrayList<Player>();
-		for (int i = 0; i < numberOfPlayers; ++i) {
+		for (int i = 1; i <= numberOfPlayers; ++i) {
 			Player player = new Player("Player#" + i, new ArrayList<Rules>(this.rules));
 			player.assignTicket(new Ticket(inputs.rows, inputs.columns, inputs.numbersRange, inputs.numbersPerRow));
 			players.add(player);

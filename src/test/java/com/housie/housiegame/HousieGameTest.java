@@ -27,7 +27,7 @@ public class HousieGameTest {
 		HousieGame game = new HousieGame(getValidGameInputs());
 		assertTrue(game.getPlayers().size() == 5);
 		for (int i = 0; i < game.getPlayers().size(); i++) {
-			assertThat(game.getPlayers().get(i).toString(), is("Player#" + i));
+			assertThat(game.getPlayers().get(i).toString(), is("Player#" + (i + 1)));
 		}
 		for (Rules rule : Rules.values()) {
 			assertTrue(game.getRules().contains(rule));
