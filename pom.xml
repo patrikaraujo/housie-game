@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- /**********************************************************************
- * Copyright (C) 2020 to present, Patrik Araujo - All Rights Reserved
- * You may only use this code for the purposes authorized
- * by the Author. This code cannot be distributed without
- * consent of the Author. The author is not responsible 
- * by how this software is used.
- **********************************************************************/ -->
+<!-- /********************************************************************** 
+	* Copyright (C) 2020 to present, Patrik Araujo - All Rights Reserved * You 
+	may only use this code for the purposes authorized * by the Author. This 
+	code cannot be distributed without * consent of the Author. The author is 
+	not responsible * by how this software is used. **********************************************************************/ -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -16,6 +14,7 @@
 	<groupId>com.housie</groupId>
 	<artifactId>housiegame</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 
 	<name>housiegame</name>
 	<url>http://www.nowebsite.com</url>
@@ -41,18 +40,9 @@
 		</dependency>
 		<dependency>
 			<groupId>org.jline</groupId>
-			<artifactId>jline</artifactId>
-			<version>3.17.1</version>
-		</dependency>
-		<dependency>
-			<groupId>net.java.dev.jna</groupId>
-			<artifactId>jna</artifactId>
-			<version>5.6.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.jline</groupId>
 			<artifactId>jline-terminal-jna</artifactId>
 			<version>3.17.1</version>
+
 		</dependency>
 	</dependencies>
 
@@ -119,6 +109,47 @@
 						<goals>
 							<goal>report</goal>
 						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>3.1.2</version>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/lib</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>false</overWriteSnapshots>
+							<overWriteIfNewer>true</overWriteIfNewer>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<shadedArtifactAttached>true</shadedArtifactAttached>
+							<finalName>housiegame-0.0.1</finalName>
+							<transformers>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>com.housie.housiegame.PlayHousieGame</mainClass>
+								</transformer>
+							</transformers>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
