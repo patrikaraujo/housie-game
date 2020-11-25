@@ -115,7 +115,7 @@ public class HousieGame {
 		return drawnNumbers.get(numbersDrawn++);
 	}
 
-	public List<Integer> drawNumbers() {
+	private List<Integer> drawNumbers() {
 		List<Integer> values = IntStream.range(1, inputs.numbersRange + 1).boxed().collect(Collectors.toList());
 		Collections.shuffle(values);
 		return values;
