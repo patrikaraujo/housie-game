@@ -1,4 +1,5 @@
 
+
 # housie-game
 Simple implementation of the Housie game.
 
@@ -14,7 +15,8 @@ Simple implementation of the Housie game.
 
 ### Building from source
 1. Checkout the git repo.
-2. Build the executable jar file using Apache Maven. This command will compile the code, run the unit tests and build an executable jar file for the game.
+2. Build the executable jar file using Apache Maven. This command will compile the code, run the unit tests and build an executable jar file for the game.  
+Unit tests code coverage is available in 'target/site/jacoco/index.html'.
    ```
    $ mvn clean package
    ```
