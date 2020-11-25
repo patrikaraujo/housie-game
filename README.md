@@ -26,15 +26,15 @@ Simple implementation of the Housie game.
 ## How to play
 The game is setup choosing the range of numbers to be used in the tickets, which is also the range of numbers to be drawn during the game, choosing the number of players for the game (all players are fictitious and simulated by the program), choosing the size of the ticket, and choosing how many numbers should be in each row.
 
-The program will display an error message and allow the user to input new values if the values don't make sense.
-For example, if the range of numbers is 10, the ticket size is 3x5, and numbers per row is 5, an error will be generated because there are not enough unique numbers (5 per row, 3 rows, 15 total) in the range 1 - 10.
+The program will display an error message and allow the user to input new values if the values don't make sense.  
+For example, if the range of numbers is 10, the ticket size is 3x5, and numbers per row is 5, an error will be generated because there are not enough unique numbers (5 per row, 3 rows, 15 total) in the range 1 - 10.  
 Another example, if the range of numbers is 20, the ticket size is 3x5, and numbers per row is 6, an error will be generated because the numbers per row is greater the number of columns in the ticket.
 
 After the game setup, the user presses the 'N' key to draw numbers for the game. Holding the 'N' key will generate several numbers in a row, potentially until the end of the game.
 
-The game ends when there is a winner to all matching combinations, or when all numbers in the specified range are drawn.
-Each winning combination is only claimed once, but the same player can win in more than one combination.
-When the game is over a summary message will display the winners of the game and the winning combinations.
+The game ends when there is a winner to all matching combinations, or when all numbers in the specified range are drawn.  
+Each winning combination can only claimed once, but the same player can win in more than one combination.  
+When the game is over a summary message will display the winners of the game and the winning combinations.  
 Winning combinations:
 | Combination | Description |
 |--|--|
