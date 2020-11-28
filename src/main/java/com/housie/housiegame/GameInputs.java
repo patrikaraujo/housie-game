@@ -23,8 +23,8 @@ public class GameInputs {
 		this.ticketSize = ticketSize;
 		validateDimension(ticketSize);
 		String[] dimensions = ticketSize.toLowerCase().split("x");
-		this.rows = Integer.parseInt(dimensions[0]);
-		this.columns = Integer.parseInt(dimensions[1]);
+		this.rows = Integer.parseInt(dimensions[0].trim());
+		this.columns = Integer.parseInt(dimensions[1].trim());
 		this.numbersPerRow = requirePositiveInteger(numbersPerRow, "numbersPerRow");
 		validateInputs();
 	}
@@ -36,13 +36,13 @@ public class GameInputs {
 				)
 			throw new IllegalArgumentException("'x' is required between two positive integer numbers.");
 		try {
-			Integer.parseInt(dimension.toLowerCase().split("x")[0]);
-			Integer.parseInt(dimension.toLowerCase().split("x")[1]);
+			Integer.parseInt(dimension.toLowerCase().split("x")[0].trim());
+			Integer.parseInt(dimension.toLowerCase().split("x")[1].trim());
 		} catch (NumberFormatException e) {
 			throw new IllegalArgumentException("The dimension must have 2 integer numbers");
 		}
-		if (Integer.parseInt(dimension.toLowerCase().split("x")[0]) < 0
-				|| Integer.parseInt(dimension.toLowerCase().split("x")[1]) < 0)
+		if (Integer.parseInt(dimension.toLowerCase().split("x")[0].trim()) < 0
+				|| Integer.parseInt(dimension.toLowerCase().split("x")[1].trim()) < 0)
 			throw new IllegalArgumentException("The dimension must have 2 positive integer numbers");
 	}
 	

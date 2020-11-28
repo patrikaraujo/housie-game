@@ -10,6 +10,7 @@ package com.housie.housiegame;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -205,6 +206,17 @@ public class HousieGameTest {
 			GameInputs.validateDimension("5x-34");
 		});
 		assertThat(exception.getMessage(), is("The dimension must have 2 positive integer numbers"));
+	}
+	
+	@Test
+	public void testValidGameInputs() {
+		assertDoesNotThrow(() -> {
+			new GameInputs(20, 4, "3x5", 5);
+		});
+		
+		assertDoesNotThrow(() -> {
+			new GameInputs(20, 4, " 3 x  5", 5);
+		});
 	}
 
 	@Test
