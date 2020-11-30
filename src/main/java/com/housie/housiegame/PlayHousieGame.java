@@ -24,6 +24,12 @@ public class PlayHousieGame {
 	private static final int CHAR_UPPERCASE_N = (int) 'N';
 	private static final int CHAR_Q = (int) 'q';
 	private static final int CHAR_UPPERCASE_Q = (int) 'Q';
+	
+	private static void shouldQuit(String input) {
+		if (input.equals("q") || input.equals("Q")) {
+			System.exit(0);
+		}
+	}
 
 	private static int readInteger(Scanner scanner, String fieldName) {
 		return readInteger(scanner, null, fieldName);
@@ -33,6 +39,7 @@ public class PlayHousieGame {
 		while (true) {
 			try {
 				String input = scanner.nextLine();
+				shouldQuit(input);
 				int intValue = input.isEmpty() && defaultValue != null ? defaultValue : Integer.parseInt(input);
 				return GameInputs.requirePositiveInteger(intValue, fieldName);
 			} catch (IllegalArgumentException e) {
@@ -45,6 +52,7 @@ public class PlayHousieGame {
 		while (true) {
 			try {
 				String input = scanner.nextLine();
+				shouldQuit(input);
 				if (input.isEmpty())
 					return defaultValue;
 				GameInputs.validateDimension(input);
