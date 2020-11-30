@@ -83,6 +83,10 @@ public class Ticket {
 		}
 	}
 
+	public Map<Integer, Integer> getTicketNumbers() {
+		return Collections.unmodifiableMap(this.table);
+	}
+
 	private void fillTable() {
 		List<Integer> numbers = generateRandomNumbers(numbersRange, rows * numbersPerRow);
 		int numbersIndex = 0;
